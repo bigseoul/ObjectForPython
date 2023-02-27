@@ -1,15 +1,15 @@
-"""
-관람객이 소지품을 보관할 Bag클래스. 
-"""
-
 from invitation_ import Invitation
 from ticket_ import Ticket
 
 
 class Bag:
-    """Audience jisoo = new Audience(new Bag(20000));만 고려
+    """
+    관람객이 소지품을 보관할 Bag클래스.
+
+    Audience jisoo = new Audience(new Bag(20000));만 고려
     따라서, 매개변수에 20000만 들어옮. invitation과 ticket 않넣음
-    파이썬은 생성자 오버로드가 없으나 if-elif로 만들 수 있음."""
+    파이썬은 생성자 오버로드가 없으나 if-elif로 만들 수 있음.
+    """
 
     def __init__(self, amount: int, invitation: Invitation = None) -> None:  # type: ignore
         """생성자 오버로딩이 안되므로, if-else로 분기"""

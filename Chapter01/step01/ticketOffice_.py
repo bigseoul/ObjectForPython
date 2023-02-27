@@ -12,6 +12,10 @@ class TicketOffice:
 
     # 생성한 티켓을 윗장부터 없앰.
     def get_ticket(self) -> Ticket:
+        """
+        편의를 위해 tickets컬랙션에서
+        맨 첫 번째 위치에 저장된 ticket을 반환하는 것으로 구현
+        """
         a_ticket_sold = self.__ticket_list[0]
         del self.__ticket_list[0]
         return a_ticket_sold
