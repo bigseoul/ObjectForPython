@@ -7,6 +7,14 @@ class TicketOffice:
         self.__amount = amount
         self.__ticket_list = ticket_list
 
+    def sell_to(self, audience: Audience):
+        """티켓오피스가 관객에게
+        직접 표를 판매하기 때문에 되레 의존성 추가됨.
+        트레이드 오프 필요함.
+        따라서 기존 스탭02처럼 바꿔, 관객에 대한 결합도를 낮춘다
+        """
+        self.__plus_amount(audience.buy(self.__get_ticket()))
+
     # 생성한 티켓을 윗장부터 없앰.
     def __get_ticket(self):
         a_ticket_sold = self.__ticket_list[0]
@@ -19,12 +27,3 @@ class TicketOffice:
 
     def minus_amout(self, amount):
         self.__amount -= amount
-
-    def sell_to(self, audience: Audience):
-        """티켓오피스가 관객에게
-        직접 표를 판매하기 때문에 의존성 추가됨
-
-        따라서 기존 스탭02처럼 바꿔,
-        관객에 대한 결합도를 낮춘다
-        """
-        self.__plus_amount(audience.buy(self.__get_ticket()))

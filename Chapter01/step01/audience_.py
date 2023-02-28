@@ -9,6 +9,6 @@ class Audience:
     def __init__(self, bag: Bag) -> None:
         self.__bag = bag
 
-    # Bag 자료형
     def get_bag(self) -> Bag:
+        """외부에서 직접 가방에 접근할 수 있음. 노캡슐화"""
         return self.__bag

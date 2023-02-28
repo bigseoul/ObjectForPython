@@ -4,7 +4,7 @@ from ticket import Ticket
 
 class Bag:
     def __init__(self, amount: int, invitation: Invitation) -> None:
-        if invitation == None:
+        if invitation is None:
             self.__amount = amount
             self.__invitation = None
         else:
@@ -12,7 +12,10 @@ class Bag:
             self.__invitation = invitation
 
     def hold(self, ticket: Ticket) -> int:
-        """초대장 없지 않으면 True반환"""
+        """
+        step2 에서 추가, 가방 캡슐화
+        초대장 없지 않으면 True반환
+        """
         if self.__has_invitation():
             self.__set_ticket(ticket)
             return 0
