@@ -3,15 +3,21 @@ from ticket import Ticket
 
 
 class Audience:
+    """
+    관객이 Bag을 직접 처리하기 때문에 외부에서는
+    더이상 관객이 가방을 소유하고 있다는 사실을 알필요가 없다.
+
+    관객 클래스에서 getBag메서드를 제거할 수 있고 결과적으로
+    Bag의 존재를 캡슐화 할 수 있다.
+    """
+
     def __init__(self, bag: Bag) -> None:
         self.__bag = bag
 
-    # Bag 자료형
-    def get_bag(self):
-        return self.__bag
+    # def get_bag(self) -> Bag:
+    #     return self.__bag
 
-
-    def buy(self, ticket: Ticket):
+    def buy(self, ticket: Ticket) -> int:
         """초대장이 있는 경우와 없는 경우로 나눔"""
         if self.__bag.has_invitation():
             self.__bag.set_ticket(ticket)

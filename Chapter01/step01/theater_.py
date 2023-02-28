@@ -24,7 +24,11 @@ class Theater:
         self.__ticket_seller = ticket_seller
 
     def enter(self, audience: Audience):
-        """초대장이 있는 경우와 없는 경우로 나눔"""
+        """
+        관객, 가방, 티켓오피스, 티켓과 의존관계 맺음
+        초대장이 있는 경우와 없는 경우로 나눔
+
+        """
         if audience.get_bag().has_invitation():  # True/False
             # Ticket 생성
             ticket: Ticket = self.__ticket_seller.get_ticket_office().get_ticket()

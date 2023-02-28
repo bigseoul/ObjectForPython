@@ -10,5 +10,5 @@ class Audience:
         self.__bag = bag
 
     # Bag 자료형
-    def get_bag(self):
+    def get_bag(self) -> Bag:
         return self.__bag
