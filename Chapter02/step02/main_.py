@@ -1,21 +1,18 @@
 import logging
-from datetime import date, time, datetime
+from datetime import date, datetime, time
 
 from constant_ import DAY_OF_WEEK
 from customer_ import Customer
 from money_ import Money
 from movie_ import Movie
-from screening_ import Screening
-
 from pricing.amount_discount_policy_ import AmountDiscountPolicy
-from pricing.percent_discount_policy_ import PercentDiscountPolicy
 from pricing.non_discount_policy_ import NonDiscountPolicy
-
+from pricing.percent_discount_policy_ import PercentDiscountPolicy
 from pricing.period_condition_ import PeriodCondition
 from pricing.sequence_condition_ import SequenceCondition
+from screening_ import Screening
 
 if __name__ == "__main__":
-
     """추상클래스를 이용한 합성 사용하기"""
     """SequenceCondition + AmountDiscountPolicy"""
     sc1 = SequenceCondition(1)

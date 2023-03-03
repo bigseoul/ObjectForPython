@@ -1,13 +1,15 @@
-from discount_policy_ import AbsDiscountPolicy
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from screening_ import Screening
+from discount_policy_ import AbsDiscountPolicy
 
-"""discount_amount: float 타임도 *args로 들어옮"""
+if TYPE_CHECKING:
+    from money_ import Money
+    from screening_ import Screening
 
 
 class PercentDiscountPolicy(AbsDiscountPolicy):
+    """discount_amount: float 타임도 *args로 들어옮"""
+
     # 인자들이 args에 패킹(튜플)되어 들어감. 인자로 들어갈 땐 패킹
     def __init__(self, *args) -> None:
         # 할인율만 따로 빼내기 위해, 튜플을 리스트로 변환
@@ -29,5 +31,5 @@ class PercentDiscountPolicy(AbsDiscountPolicy):
     # self._percent는 float, screening.get_movie_fee()는 money 객체이므로 연산 안됨.
     # 따라서, money안에 있는 decimal을 끄집어 내줘야 하는데....
     # Money 객체안에 times()가 있었네 ;;
-    def get_discount_amount(self, screening: "Screening"):
-        return screening.get_movie_fee().times(self.__percent)
+    def get_discount_amount(self, screening: "Screening") -> "Money":
+        return screening.get_movie_fee().times(self.__percent)  # type: ignore

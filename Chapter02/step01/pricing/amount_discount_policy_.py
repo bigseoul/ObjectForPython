@@ -1,7 +1,9 @@
-from discount_policy_ import AbsDiscountPolicy
 from typing import TYPE_CHECKING
 
+from discount_policy_ import AbsDiscountPolicy
+
 if TYPE_CHECKING:
+    from money_ import Money
     from screening_ import Screening
 
 
@@ -19,5 +21,5 @@ class AmountDiscountPolicy(AbsDiscountPolicy):
             # super. 이라고 하면, descriptor '__init__' requires a 'super' object but received
             super().__init__(*temp_args)
 
-    def get_discount_amount(self, screening: "Screening"):
-        return self.__discount_amount
+    def get_discount_amount(self, screening: "Screening") -> "Money":
+        return self.__discount_amount  # type: ignore

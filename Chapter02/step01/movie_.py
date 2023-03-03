@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING
 from datetime import time
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from money_ import Money
     from discount_policy_ import AbsDiscountPolicy
+    from money_ import Money
     from screening_ import Screening
 
 
@@ -21,12 +21,8 @@ class Movie:
         self.__fee = fee  # 영화가격
         self.__discount_policy = discount_policy
 
-    def check_movie(self):
-        print("===movie===")
-        print(self.__title)
-        print(self.__duration)
-        # self.__fee.check_amount() #18000원, 원래 영화값.
-        print("dPolicy: ", self.__discount_policy)
+    def __str__(self) -> str:
+        return f"영화이름: {self.__title}\n상영시간:{self.__duration}\n{self.__discount_policy}"
 
     def get_fee(self):
         return self.__fee
@@ -34,7 +30,7 @@ class Movie:
     # 추상discountPolicy에 calculateDiscoutAmout 메시지를 전송해
     # 할인 요금을 받환 받는다.
     # Movie는 기본요금인 fee에서 반환된 할인 요금을 차감.
-    def calculate_movie_fee(self, screening: "Screening"):
+    def calculate_movie_fee(self, screening: "Screening") -> "Money":
         return self.__fee.minus(
             self.__discount_policy.calculate_discount_amount(screening)
         )

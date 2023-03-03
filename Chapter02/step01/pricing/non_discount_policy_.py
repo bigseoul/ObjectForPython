@@ -1,6 +1,6 @@
 import logging
-
 from typing import TYPE_CHECKING
+
 from discount_policy_ import AbsDiscountPolicy
 from money_ import Money
 
@@ -20,5 +20,4 @@ class NonDiscountPolicy(AbsDiscountPolicy):
     """
 
     def get_discount_amount(self, screening: "Screening"):
-        logging.warning("reservation 시작하자 마나 워닝이 뜨네??")
-        return Money.wons(0)
+        return Money.from_wons(0)

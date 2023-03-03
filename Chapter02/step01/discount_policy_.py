@@ -1,17 +1,11 @@
-from abc import *
+from abc import ABCMeta, abstractmethod
 from typing import TYPE_CHECKING
+
 from money_ import Money
 
 if TYPE_CHECKING:
-    from screening_ import Screening
     from discount_condition_ import AbsDiscountCondition
-
-    # 아니 PeriodCondition도 받겠지.. 그러면 타입 힌트에 이거 쓰면 안되겠네
-
-""" PeriodCondition과 SequenceCondition의 타입 힌트를 위해
-    AbsDiscountCondition을 써도 되나? 
-    머 타입힌트고 스태틱메서드 하나만 있으니까.. 괜춚?
-"""
+    from screening_ import Screening
 
 
 class AbsDiscountPolicy(metaclass=ABCMeta):
@@ -24,8 +18,10 @@ class AbsDiscountPolicy(metaclass=ABCMeta):
         끝라인에 retrun Money.wons(0)을 안쳐넣었음.
         그런데 말입니다.. nondiscountdisp 가서 고민 참고"""
 
-    def calculate_discount_amount(self, screening: "Screening"):
+    def __str__(self) -> str:
+        return f"할인정책: {self.__conditions}"
 
+    def calculate_discount_amount(self, screening: "Screening") -> "Money":
         for condition in self.__conditions:
             if condition.is_satisfied_by(screening):
                 return self.get_discount_amount(screening)
@@ -51,5 +47,5 @@ class AbsDiscountPolicy(metaclass=ABCMeta):
     #             return self.get_discount_amount(screening)
 
     @abstractmethod
-    def get_discount_amount(self, screening: "Screening"):
+    def get_discount_amount(self, screening: "Screening") -> "Money":
         pass
