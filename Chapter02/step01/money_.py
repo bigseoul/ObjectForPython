@@ -21,11 +21,12 @@
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from money_ import Money
+# if TYPE_CHECKING:
+#     from money_ import Money
 
 
 class Money:
+
     # ZERO = Money.from_wons(0)
 
     def __init__(self, amount: Decimal) -> None:

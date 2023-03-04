@@ -21,44 +21,34 @@
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from money_ import Money
+# if TYPE_CHECKING:
+#     from money_ import Money
 
 
 class Money:
-    # ZERO = Money.wons(0) #
+    # ZERO = Money.from_wons(0)
 
-    @staticmethod
-    def wons(amount: int):
-        return Money(Decimal(str(amount)))
-
-    # 위에 있는 static wons에서 Money객체를 만들고 인자로 Decimal을 던져
-    # 여기서 math.trunc(amount)로 소수점 이하 버리기하면, int로 변환되는데... 흠.
-    # 그렇다고 다시한번 변환하는 것도 웃긴데...won에서 Decimal로 변환해서 던졌는데
     def __init__(self, amount: Decimal) -> None:
         self.__amount = amount
 
-    def plus(self, amount: "Money"):
+    def __str__(self) -> str:
+        return f"요금: {self.__amount}"
+
+    @classmethod
+    def from_wons(cls, amount: int) -> "Money":
+        return cls(Decimal(str(amount)))
+
+    def plus(self, amount: "Money") -> "Money":
         return Money(self.__amount + amount.__amount)
 
-    # 영화 가격(Money amount.__amount)에서
-    # 일정 금액(amount_discount_policy객채의 self.__amount) 만큼 할인해준다.
-    def minus(self, amount: "Money"):
-        # print("movie: ", type(self.__amount))
-        # __은 private인데, 이렇게 직접 접근하면 안될텐데?!
-        # print("amount_disPol: ", type(amount.__amount))
-        # print(self.__amount - amount.__amount)
+    def minus(self, amount: "Money") -> "Money":
         return Money(self.__amount - amount.__amount)
 
-    def times(self, percent: float):
+    def times(self, percent: float) -> "Money":
         return Money(self.__amount * Decimal(str(percent)))
 
-    def is_less_than(self, other: "Money"):
+    def is_less_than(self, other: "Money") -> bool:
         return self.__amount < other.__amount
 
-    def is_greater_than_or_equal(self, other: "Money"):
+    def is_greater_than_or_equal(self, other: "Money") -> bool:
         return self.__amount >= other.__amount
-
-    def check_amount(self):
-        print("===movie_amount====")
-        print(self.__amount)

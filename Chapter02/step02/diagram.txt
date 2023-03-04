@@ -1,8 +1,0 @@
-:Screening +reserve() --> -calculate_fee()
---> :Movie +calculate_movie_fee() 
---> :AbsDiscountPolicy + calculate_discount_amount()
--->  @abstractmethod :PercentDiscountPolicy +get_discount_amount() //실제 계산하는 곳
---> :Screening +get_movie_fee() 
---> :Movie +get_fee() --> :(Money) self.__fee 
---> :Main 
---> :Money.wons(12000) --> :Money(Decimal(str(amount))) --> :Money __init__

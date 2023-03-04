@@ -4,4 +4,4 @@ class Customer:
         self.__id = id
 
     def __str__(self) -> str:
-        return f"이름: {self.__name}\아이디: {self.__id}"
+        return f"이름: {self.__name}\n아이디: {self.__id}"

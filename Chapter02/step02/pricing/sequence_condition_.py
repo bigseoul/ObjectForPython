@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING
+
 from discount_condition_ import AbsDiscountCondition
 
 """
@@ -14,14 +15,21 @@ from discount_condition_ import AbsDiscountCondition
 if TYPE_CHECKING:
     from screening_ import Screening
 
-# 할인조건: 상영 순번
+
 class SequenceCondition(AbsDiscountCondition):
+    """
+    아는 것: 할인조건이 적용될 회차
+    하는 것: 상영조건이 할인조건에 맞는 지 확인해 bool로 리턴
+
+    """
+
     def __init__(self, sequence: int) -> None:
         self.__sequence = sequence
 
-    #몇 번째 상영 순서인지에 따라 True 반환.
-    def is_satisfied_by(self, screening: "Screening"):
-        return screening.is_sequence(self.__sequence)
+    def __str__(self) -> str:
+        return f"상영순번: {self.__sequence}"
 
-    def check(self):
-        print(self.__sequence)
+    # override
+    def is_satisfied_by(self, screening: "Screening"):
+        """몇 번째 상영 순서인지에 따라 True 반환."""
+        return screening.is_sequence(self.__sequence)

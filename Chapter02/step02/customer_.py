@@ -3,6 +3,5 @@ class Customer:
         self.__name = name
         self.__id = id
 
-    def check_customer(self):
-        print("===customer===")
-        print(self.__name, self.__id)
+    def __str__(self) -> str:
+        return f"이름: {self.__name}\n아이디: {self.__id}"
