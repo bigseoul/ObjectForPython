@@ -19,5 +19,6 @@ class NonDiscountPolicy(AbsDiscountPolicy):
     return self.get_discount_amount(screening) 해줌.
     """
 
-    def get_discount_amount(self, screening: "Screening"):
+    # override
+    def _get_discount_amount(self, screening: "Screening"):
         return Money.from_wons(0)

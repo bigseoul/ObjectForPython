@@ -8,7 +8,11 @@ if TYPE_CHECKING:
 
 
 class Movie:
-    # Movie("고질라VS콩", time(1, 53), Money.wons(18000), adp)
+    """
+    아는 것: 타이틀, 영화길이, 요금, 할인정책(정보 전문가는 DiscountPolicy)
+    하는 것: 할인 정책으로 할인 된 요금만큼 빠진 영화요금 계산.
+    """
+
     def __init__(
         self,
         title: str,
@@ -17,9 +21,9 @@ class Movie:
         discount_policy: "AbsDiscountPolicy",
     ) -> None:
         self.__title = title
-        self.__duration = duration  # 상영시간
+        self.__duration = duration  # 영화길이
         self.__fee = fee  # 영화가격
-        self.__discount_policy = discount_policy
+        self.__discount_policy = discount_policy #하나의 할인 정책만 받을 수 있음.
 
     def __str__(self) -> str:
         return f"영화이름: {self.__title}\n상영시간:{self.__duration}\n{self.__discount_policy}"
@@ -27,10 +31,11 @@ class Movie:
     def get_fee(self):
         return self.__fee
 
-    # 추상discountPolicy에 calculateDiscoutAmout 메시지를 전송해
-    # 할인 요금을 받환 받는다.
-    # Movie는 기본요금인 fee에서 반환된 할인 요금을 차감.
     def calculate_movie_fee(self, screening: "Screening") -> "Money":
+        """
+        추상 discountPolicy에 calculate_discount_amount() 메시지를 전송해 할인 요금을 받환 받는다.
+        Movie는 영화가격에서 할인 요금을 차감.
+        """
         return self.__fee.minus(
             self.__discount_policy.calculate_discount_amount(screening)
         )

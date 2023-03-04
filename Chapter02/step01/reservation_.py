@@ -7,6 +7,11 @@ if TYPE_CHECKING:
 
 
 class Reservation:
+    """
+    아는 것: 고객정보, 상영정보, 상영요금, 인원 수
+    하는 것: 고객정보와 상영정보, 요금정보를 합쳐 예약 객체 생성.
+    """
+
     def __init__(
         self,
         customer: "Customer",
