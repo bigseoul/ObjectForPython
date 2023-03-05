@@ -1,8 +1,8 @@
 import logging
 from typing import TYPE_CHECKING
 
-from discount_policy_ import AbsDiscountPolicy
-from money_ import Money
+from ..discount_policy_ import AbsDiscountPolicy
+from ..money_ import Money
 
 if TYPE_CHECKING:
     from screening_ import Screening

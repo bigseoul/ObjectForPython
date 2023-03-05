@@ -1,13 +1,13 @@
 from typing import TYPE_CHECKING
 
-from discount_policy_ import AbsDiscountPolicy
+from ..default_discount_policy_ import DefaultDiscountPolicy
 
 if TYPE_CHECKING:
     from money_ import Money
     from screening_ import Screening
 
 
-class PercentDiscountPolicy(AbsDiscountPolicy):
+class PercentDiscountPolicy(DefaultDiscountPolicy):
     """
     아는 것: 할인 조건
     하는 것: 영화가 할인 조건에 맞으면 '영화요금 * 비율' 해서 할인 요금 전달

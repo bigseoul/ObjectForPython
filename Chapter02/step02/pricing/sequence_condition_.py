@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from discount_condition_ import AbsDiscountCondition
+from ..discount_condition_ import AbsDiscountCondition
 
 """
     from screening_ import Screening 그냥 박아 넣으면 circular error 생김

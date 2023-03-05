@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from customer_ import Customer
-    from money_ import Money
-    from screening_ import Screening
+    from .customer_ import Customer
+    from .money_ import Money
+    from .screening_ import Screening
 
 
 class Reservation:

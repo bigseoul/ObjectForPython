@@ -1,13 +1,15 @@
 from typing import TYPE_CHECKING
 
-from discount_policy_ import AbsDiscountPolicy
+from .sequence_condition_ import SequenceCondition
+
+from ..default_discount_policy_ import DefaultDiscountPolicy
 
 if TYPE_CHECKING:
     from money_ import Money
     from screening_ import Screening
 
 
-class AmountDiscountPolicy(AbsDiscountPolicy):
+class AmountDiscountPolicy(DefaultDiscountPolicy):
     """정액 할인 정책"""
 
     def __init__(self, *args) -> None:

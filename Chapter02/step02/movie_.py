@@ -2,9 +2,9 @@ from datetime import time
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from discount_policy_ import AbsDiscountPolicy
-    from money_ import Money
-    from screening_ import Screening
+    from .discount_policy_ import AbsDiscountPolicy
+    from .money_ import Money
+    from .screening_ import Screening
 
 
 class Movie:
@@ -23,7 +23,7 @@ class Movie:
         self.__title = title
         self.__duration = duration  # 영화길이
         self.__fee = fee  # 영화가격
-        self.__discount_policy = discount_policy #하나의 할인 정책만 받을 수 있음.
+        self.__discount_policy = discount_policy  # 하나의 할인 정책만 받을 수 있음.
 
     def __str__(self) -> str:
         return f"영화이름: {self.__title}\n상영시간:{self.__duration}\n{self.__discount_policy}"
