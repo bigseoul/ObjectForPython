@@ -1,12 +1,12 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from .money_ import Money
-from .reservation_ import Reservation
+from money_ import Money
+from reservation_ import Reservation
 
 if TYPE_CHECKING:
-    from .customer_ import Customer
-    from .movie_ import Movie
+    from customer_ import Customer
+    from movie_ import Movie
 
 
 class Screening:

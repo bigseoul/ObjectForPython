@@ -2,9 +2,9 @@ from datetime import time
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .discount_policy_ import AbsDiscountPolicy
-    from .money_ import Money
-    from .screening_ import Screening
+    from discount_policy_ import AbsDiscountPolicy
+    from money_ import Money
+    from screening_ import Screening
 
 
 class Movie:

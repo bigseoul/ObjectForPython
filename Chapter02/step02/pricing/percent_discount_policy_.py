@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from ..default_discount_policy_ import DefaultDiscountPolicy
+from default_discount_policy_ import DefaultDiscountPolicy
 
 if TYPE_CHECKING:
     from money_ import Money

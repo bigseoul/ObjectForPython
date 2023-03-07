@@ -1,9 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
-from .discount_condition_ import AbsDiscountCondition
-from .discount_policy_ import AbsDiscountPolicy
-from .money_ import Money
-from .screening_ import Screening
+from discount_condition_ import AbsDiscountCondition
+from discount_policy_ import AbsDiscountPolicy
+from money_ import Money
+from screening_ import Screening
 
 
 class DefaultDiscountPolicy(AbsDiscountPolicy, metaclass=ABCMeta):

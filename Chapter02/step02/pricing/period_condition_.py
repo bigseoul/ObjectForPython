@@ -1,8 +1,8 @@
 from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
-from ..constant_ import DAY_OF_WEEK
-from ..discount_condition_ import AbsDiscountCondition
+from constant_ import DAY_OF_WEEK
+from discount_condition_ import AbsDiscountCondition
 
 if TYPE_CHECKING:
     from screening_ import Screening
