@@ -1,14 +1,14 @@
 import logging
 from typing import TYPE_CHECKING
 
+from discount_policy_ import AbsDiscountPolicy
 from money_ import Money
-from default_discount_policy_ import DefaultDiscountPolicy
 
 if TYPE_CHECKING:
     from screening_ import Screening
 
 
-class NonDiscountPolicy(DefaultDiscountPolicy):
+class NonDiscountPolicy(AbsDiscountPolicy):
 
     """Movie, calculate_discount_amount에서 return Money.wons(0) 가 처리해줌.
     패스해도 상관없음. 쓰질 않으니... 근데 왜 접근조차 안한는 거지?
@@ -20,5 +20,5 @@ class NonDiscountPolicy(DefaultDiscountPolicy):
     """
 
     # override
-    def _get_discount_amount(self, screening: "Screening"):
+    def calculate_discount_amount(self, screening: "Screening") -> "Money":
         return Money.from_wons(0)
