@@ -40,7 +40,7 @@ class AbsDiscountPolicy(metaclass=ABCMeta):
             if condition.is_satisfied_by(screening):
                 return self._get_discount_amount(screening)
 
-        return Money.from_wons(0)  # NoneDisdountPolicy 의 경우
+        return Money.from_wons(0)  # 할인 정책이 없는 경우를 예외 케이스로 취급하기에 지금까지 일관성 있던 협력 방식이 무너짐.
 
     @abstractmethod
     def _get_discount_amount(self, screening: "Screening") -> "Money":
