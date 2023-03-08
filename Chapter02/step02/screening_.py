@@ -34,16 +34,17 @@ class Screening:
         return self.__moive.get_fee()
 
     def reserve(self, customer: "Customer", audience_count: int) -> Reservation:
-        """
-        private
-        """
+        
         return Reservation(
             customer, self, self.__calculate_fee(audience_count), audience_count
         )
 
     def __calculate_fee(self, audience_count: int) -> Money:
         """
+        2. 영화에게 영화요금 계산하라는 메시지 보냄.
+
         movie의 calculate_movie_fee의 반환값은 1인당 예매 요금.
         이 반환값에 인원 수 곱함.
         """
+
         return self.__moive.calculate_movie_fee(self).times(audience_count)

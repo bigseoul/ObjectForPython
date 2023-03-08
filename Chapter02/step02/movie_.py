@@ -33,6 +33,8 @@ class Movie:
 
     def calculate_movie_fee(self, screening: "Screening") -> "Money":
         """
+        3. 할인정책에게 할인요금 계산하라는 메시지 보냄
+
         추상 discountPolicy에 calculate_discount_amount() 메시지를 전송해 할인 요금을 받환 받는다.
         Movie는 영화가격에서 할인 요금을 차감.
         """
