@@ -20,6 +20,6 @@ class AmountDiscountPolicy(DefaultDiscountPolicy):
                 args = temp_args
             super().__init__(*temp_args)
 
-    # override
+    # override 4-1 내부 구현,(AmountDiscountPolicy, Percent~)에게 할인정도 계산해달라고 메시지 전달
     def _get_discount_amount(self, screening: "Screening") -> "Money":
         return self.__discount_amount  # type: ignore
