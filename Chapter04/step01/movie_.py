@@ -1,6 +1,7 @@
-from tkinter.messagebox import NO
+from datetime import time
 from typing import TYPE_CHECKING
-from typing_extensions import Self
+
+from discount_condition_type_ import DiscountConditionType
 from movie_type_ import MovieType
 
 if TYPE_CHECKING:
@@ -11,8 +12,8 @@ class Movie:
     def __init__(
         self,
         movie_type: "MovieType",
-        title,
-        running_time,
+        title: str,
+        running_time: time,
         fee=None,
         discount_amount=None,
         discount_percent=None,
@@ -30,11 +31,11 @@ class Movie:
     @classmethod
     def from_Movie_for_discount_percent(
         cls,
-        cls_title,
-        cls_running_time,
+        cls_title: str,
+        cls_running_time: time,
         cls_fee: "Money",
-        cls_discount_percent,
-        *cls_discount_conditions
+        cls_discount_percent: float,
+        *cls_discount_conditions: list[DiscountConditionType]
     ):
         return cls(
             movie_type=MovieType.PERCENT_DISCOUNT,
@@ -48,11 +49,11 @@ class Movie:
     @classmethod
     def from_Movie_for_discount_amount(
         cls,
-        cls_title,
-        cls_running_time,
+        cls_title: str,
+        cls_running_time: time,
         cls_fee: "Money",
-        cls_discount_amount,
-        *cls_discount_conditions
+        cls_discount_amount: "Money",
+        *cls_discount_conditions: list[DiscountConditionType]
     ):
         return cls(
             movie_type=MovieType.AMOUNT_DISCOUNT,
@@ -66,8 +67,8 @@ class Movie:
     @classmethod
     def from_Movie_for_non_discount(
         cls,
-        cls_title,
-        cls_running_time,
+        cls_title: str,
+        cls_running_time: time,
         cls_fee: "Money",
     ):
         return cls(
