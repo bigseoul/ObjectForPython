@@ -1,23 +1,31 @@
 from datetime import time
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Optional
 
+from discount_condition_ import DiscountCondition
 from discount_condition_type_ import DiscountConditionType
+from money_ import Money
 from movie_type_ import MovieType
-
-if TYPE_CHECKING:
-    from money_ import Money
 
 
 class Movie:
+    """
+    2장과 '가장 큰 차이점'은 할인 조건의 목록(discountConditions)이
+    인스턴스 변수로 Movie 안에 직접 포함돼 있다는 것 이다.
+
+    또한 DiscountPolicy라는 별도의 추상 클래스로 분리했던 이전 예제와 달리,
+    금액 할인 정책에 사용되는 할인금액(discountAmount),
+    할인비율(discountPercent)을 Movie안에서 직접 정의하고 있다.
+    """
+
     def __init__(
         self,
         movie_type: "MovieType",
         title: str,
         running_time: time,
-        fee=None,
-        discount_amount=None,
-        discount_percent=None,
-        discount_conditions=None,
+        fee: "Money",
+        discount_amount: "Money",
+        discount_percent: "float",
+        discount_conditions: List["DiscountCondition"] = None,  # type: ignore
     ) -> None:
         self.__movie_type = movie_type
         self.__title = title
@@ -25,17 +33,19 @@ class Movie:
         self.__fee = fee
         self.__discount_amount = discount_amount
         self.__discount_percent = discount_percent
-        # from_Movie_**에서 args를 list()받아서 보내줌. 패킹할 필요 없음.
-        self.__discount_condition = discount_conditions
+        self.__discount_condition = discount_conditions or []
+
+    def __str__(self) -> str:
+        return f"{self.__title} ({self.__running_time}) - {self.__fee}"
 
     @classmethod
-    def from_Movie_for_discount_percent(
+    def from_movie_for_discount_percent(
         cls,
         cls_title: str,
         cls_running_time: time,
         cls_fee: "Money",
         cls_discount_percent: float,
-        *cls_discount_conditions: list[DiscountConditionType]
+        *cls_discount_conditions: "DiscountCondition",
     ):
         return cls(
             movie_type=MovieType.PERCENT_DISCOUNT,
@@ -43,29 +53,26 @@ class Movie:
             running_time=cls_running_time,
             fee=cls_fee,
             discount_percent=cls_discount_percent,
+            discount_amount=Money.from_wons(0),
             discount_conditions=list(cls_discount_conditions),
         )
 
     @classmethod
-    def from_Movie_for_discount_amount(
-        cls,
-        cls_title: str,
-        cls_running_time: time,
-        cls_fee: "Money",
-        cls_discount_amount: "Money",
-        *cls_discount_conditions: list[DiscountConditionType]
+    def from_movie_for_discount_amount(
+        cls, title, running_time, fee, discount_amount, *discount_conditions
     ):
         return cls(
             movie_type=MovieType.AMOUNT_DISCOUNT,
-            title=cls_title,
-            running_time=cls_running_time,
-            fee=cls_fee,
-            discount_amount=cls_discount_amount,
-            discount_conditions=list(cls_discount_conditions),
+            title=title,
+            running_time=running_time,
+            fee=fee,
+            discount_percent=0.0,
+            discount_amount=discount_amount,
+            discount_conditions=list(discount_conditions),
         )
 
     @classmethod
-    def from_Movie_for_non_discount(
+    def from_movie_for_non_discount(
         cls,
         cls_title: str,
         cls_running_time: time,
@@ -76,6 +83,9 @@ class Movie:
             title=cls_title,
             running_time=cls_running_time,
             fee=cls_fee,
+            discount_percent=0.0,
+            discount_amount=Money.from_wons(0),
+            discount_conditions=[],
         )
 
     # movie객체에서 생성자 오버로드 여러 개 해줘야 함.

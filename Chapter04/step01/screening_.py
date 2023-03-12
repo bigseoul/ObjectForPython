@@ -2,15 +2,18 @@ from datetime import datetime
 
 
 class Screening:
-
     # 자바처럼 디폴트 생성자를 만들어주지 않으니, 만드는데
     # None으로 해도 되나?
     # https://gongmeda.tistory.com/12
+    def __init__(self, movie=None, sequence=None, when_screened=None):
+        self.__movie = movie
+        self.__sequence = sequence
+        self.__when_screened = (
+            when_screened if when_screened else datetime.now()
+        )  # set default value if None
 
-    def __init__(self) -> None:
-        self.__movie = None
-        self.__sequence = None
-        self.__when_screened: "datetime"
+    def __str__(self):
+        return f"Screening of {self.movie} at {self.__when_screened}"
 
     @property
     def movie(self):

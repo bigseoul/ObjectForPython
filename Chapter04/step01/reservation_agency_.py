@@ -1,63 +1,57 @@
 from typing import TYPE_CHECKING
-from discount_condition_type_ import DiscountConditionType
-from money_zero import MoneyZero
 
-from reservation_ import Reservation
+from discount_condition_type_ import DiscountConditionType
 from money_ import Money
 from movie_type_ import MovieType
+from reservation_ import Reservation
 
 if TYPE_CHECKING:
-    from screening_ import Screening
     from customer_ import Customer
-    from movie_ import Movie
     from discount_condition_ import DiscountCondition
+    from movie_ import Movie
+    from screening_ import Screening
 
 
 class ReservationAgency:
-    # return type이 Reservation임.
     def reserve(
-        screening: "Screening", customer: "Customer", audience_count
+        self, screening: "Screening", customer: "Customer", audience_count: int
     ) -> Reservation:
-        movie: "Movie" = screening.movie
-
+        if screening.movie is None:
+            raise ValueError("Screening movie is None")
+        else:
+            movie: "Movie" = screening.movie
         """
         할인 가능 여부 체크
         P182) 디미터의 법칙 위반 
         """
         discountable = False
 
-        # condition에 타입힌트 DiscountCondition를 어떻게 주지? 안에서 재할당 ㅋ
-        # Dot이 많다.
         for condition in movie.discount_conditions:
             condition: "DiscountCondition" = condition
             if condition.type == DiscountConditionType.PERIOD:
-
                 # when_screened 게터에 리턴 타입 힌트 줌.
                 discountable = (
                     condition.day_of_week == screening.when_screened.weekday()
                     and condition.start_time.time() <= screening.when_screened.time()
                     and condition.end_time.time() >= screening.when_screened.time()
                 )
-                print("discountable:", discountable)
             else:
                 discountable = condition.sequence == screening.sequence
 
             if discountable:
-                print("Yes, it's discountable. break")
                 break
 
-        fee: "Money" = None
+        fee: "Money" = Money.from_wons(0)
         if discountable:
-            print("apply discount")
-            discount_amount: "Money" = MoneyZero.ZERO
-            #문제,낮은 응집도)할인정책을 판단하는 코드와 할인 정책을 선택하는 코드가 함께 있음.
+            discount_amount: "Money" = Money.from_wons(0)
+            # 문제,낮은 응집도)할인정책을 판단하는 코드와 할인 정책을 선택하는 코드가 함께 있음.
             if movie.movie_type == MovieType.AMOUNT_DISCOUNT:
                 discount_amount = movie.discount_amount
             elif movie.movie_type == MovieType.PERCENT_DISCOUNT:
                 temp_fee: "Money" = movie.fee
                 discount_amount = temp_fee.times(movie.discount_percent)
             elif movie.movie_type == MovieType.NONE_DISCOUNT:
-                discount_amount = MoneyZero.ZERO
+                discount_amount = Money.from_wons(0)
             """
             문제)높은 결합도
             -객체 내부 구현이 외부인터페이스에 드러난다는 것은 클라이언트가 구현에 강하게 결합된 것
@@ -73,12 +67,10 @@ class ReservationAgency:
             
             -제어 객체인 ReservationAgency가 모든 데이터 객체에 의존함.  
             """
-            minus_fee: "Money" = movie.fee
-            
-            # 같은 객체니까... 마이너스로 머니를 리턴했으니, 다시 타임스 접근 가능하지 ㅋ;
-            fee = minus_fee.minus(discount_amount).times(audience_count)
+            fee: "Money" = movie.fee
+            fee = fee.minus(discount_amount).times(audience_count)
         else:
-            else_fee: "Money" = movie.fee  # type: ignore
-            fee = else_fee.minus(discount_amount)
+            fee: "Money" = movie.fee  # type: ignore
+            fee = fee.times(audience_count)
 
         return Reservation(customer, screening, fee, audience_count)
