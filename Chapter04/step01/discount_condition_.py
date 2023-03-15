@@ -1,8 +1,7 @@
-from time import time
-from constant_ import DAY_OF_WEEK
-from datetime import date, time, datetime
+from datetime import datetime
+from typing import TYPE_CHECKING, Optional
 
-from typing import TYPE_CHECKING
+from constant_ import DAY_OF_WEEK
 
 if TYPE_CHECKING:
     from discount_condition_type_ import DiscountConditionType
@@ -41,7 +40,7 @@ class DiscountCondition:
         self.__day_of_week = day_of_week
 
     @property
-    def start_time(self) -> datetime:
+    def start_time(self) -> Optional[datetime]:
         return self.__start_time
 
     @start_time.setter
@@ -49,7 +48,7 @@ class DiscountCondition:
         self.__start_time = start_time
 
     @property
-    def end_time(self) -> datetime:
+    def end_time(self) -> Optional[datetime]:
         return self.__end_time
 
     @end_time.setter

@@ -43,5 +43,5 @@ if __name__ == "__main__":
 
     agency = ReservationAgency()
     reservation = agency.reserve(screening, Customer("bigseoul", 2), 1)
-    # print("Movie.fee=", free_guy.fee)
-    # print("Reservation.fee=", reservation.fee)
+    print("Movie.fee=", free_guy.fee)
+    print("Reservation.fee=", reservation.fee)

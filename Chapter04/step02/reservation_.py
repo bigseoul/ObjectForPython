@@ -1,10 +1,10 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from screening_ import Screening
     from customer_ import Customer
     from discount_condition_ import DiscountCondition
     from money_ import Money
+    from screening_ import Screening
 
 
 class Reservation:
@@ -15,6 +15,9 @@ class Reservation:
         self.__screening = screening
         self.__fee = fee
         self.__audience_count = audience_count
+
+    def __str__(self) -> str:
+        return f"Reservation: {self.__customer}, {self.__screening}, {self.__fee}, {self.__audience_count}"
 
     @property
     def customer(self):

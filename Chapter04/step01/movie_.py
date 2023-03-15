@@ -33,7 +33,7 @@ class Movie:
         self.__fee = fee
         self.__discount_amount = discount_amount
         self.__discount_percent = discount_percent
-        self.__discount_condition = discount_conditions or []
+        self.__discount_conditions = discount_conditions or []
 
     def __str__(self) -> str:
         return f"{self.__title} ({self.__running_time}) - {self.__fee}"
@@ -121,11 +121,11 @@ class Movie:
 
     @property
     def discount_conditions(self):
-        return self.__discount_condition
+        return self.__discount_conditions
 
     @discount_conditions.setter
     def discount_conditions(self, *discount_conditions):
-        self.__discount_condition = list(discount_conditions)
+        self.__discount_conditions = list(discount_conditions)
 
     @property
     def discount_amount(self):

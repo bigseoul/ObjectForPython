@@ -26,23 +26,27 @@ class ReservationAgency:
         """
         discountable = False
 
+        # Discountcondition에 대해 루프를 돌면서 할인 가능 여부를 확인한다. discountable 변수의 값을 체크하고 적절한 할인 정책에 따라 예매 요금을 계산한다.
         for condition in movie.discount_conditions:
             condition: "DiscountCondition" = condition
             if condition.type == DiscountConditionType.PERIOD:
                 # when_screened 게터에 리턴 타입 힌트 줌.
-                discountable = (
-                    condition.day_of_week == screening.when_screened.weekday()
-                    and condition.start_time.time() <= screening.when_screened.time()
-                    and condition.end_time.time() >= screening.when_screened.time()
-                )
+                if condition.start_time is not None and condition.end_time is not None:
+                    discountable = (
+                        condition.day_of_week == screening.when_screened.weekday()
+                        and condition.start_time.time()
+                        <= screening.when_screened.time()
+                        and condition.end_time.time() >= screening.when_screened.time()
+                    )
             else:
                 discountable = condition.sequence == screening.sequence
 
             if discountable:
                 break
 
+        # discountable 변수의 값을 체크하고 적절한 할인 정책에 따라 예매 요금을 계산하는 if문.
         fee: "Money" = Money.from_wons(0)
-        if discountable:
+        if discountable:  # true이면
             discount_amount: "Money" = Money.from_wons(0)
             # 문제,낮은 응집도)할인정책을 판단하는 코드와 할인 정책을 선택하는 코드가 함께 있음.
             if movie.movie_type == MovieType.AMOUNT_DISCOUNT:
