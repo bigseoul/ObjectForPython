@@ -26,20 +26,36 @@ class Screening:
     하나의 변경을 수용하기 위해 여러 곳을 동시에 변경해야 한다면 설계의 응집도가 낮다는 증거이다.
     """
 
+    # This is a class definition for Screening
+class Screening:
+    # Constructor for Screening class which takes movie, sequence and when_screened as input parameters
     def __init__(self, movie: Movie, sequence: int, when_screened: datetime) -> None:
+        # Private instance variable __movie which stores the movie object
         self.__movie = movie
+        # Private instance variable __sequence which stores the sequence number
         self.__sequence = sequence
+        # Private instance variable __when_screened which stores the datetime object for when the screening is scheduled
         self.__when_screened = when_screened
 
+    # Method to return the string representation of the Screening object
     def __str__(self) -> str:
         return f"{self.__movie}, {self.__sequence}, {self.__when_screened}"
 
+    # Method to calculate the fee for the screening based on the audience count
     def calculate_fee(self, audience_count: int) -> Money:  # type: ignore
+        # Get the movie type from the movie object
         movie_type = self.__movie.get_movie_type()
+        # If the movie type is AMOUNT_DISCOUNT
         if movie_type == MovieType.AMOUNT_DISCOUNT:
+            # Check if the movie is discountable for the given screening time and sequence
             if self.__movie.is_discountable(self.__when_screened, self.__sequence):
+                # Calculate the amount discounted fee and return the total fee for the audience count
                 return self.__movie.calculate_amount_discounted_fee() * audience_count
+        # If the movie type is PERCENT_DISCOUNT
         elif movie_type == MovieType.PERCENT_DISCOUNT:
+            # Calculate the percent discounted fee and return the total fee for the audience count
             return self.__movie.calculate_percent_discounted_fee() * audience_count
+        # If the movie type is NONE_DISCOUNT
         else:
+            # Calculate the none discounted fee and return the total fee for the audience count
             return self.__movie.calculate_none_discounted_fee() * audience_count
