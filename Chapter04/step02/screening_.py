@@ -5,8 +5,8 @@ from movie_ import Movie
 from movie_type_ import MovieType
 
 
+# This is a class definition for Screening
 class Screening:
-
     """
     무비가 금액 할인 정책이나 비율 할인 정책을 지원할 경우, 무비의 is_discountable()메서드를
     호출해서 할인이 가능하지 여부를 판단한 뒤, 적절한 무비의 메서드를 호출해 요금을 계산한 다.
@@ -26,8 +26,6 @@ class Screening:
     하나의 변경을 수용하기 위해 여러 곳을 동시에 변경해야 한다면 설계의 응집도가 낮다는 증거이다.
     """
 
-    # This is a class definition for Screening
-class Screening:
     # Constructor for Screening class which takes movie, sequence and when_screened as input parameters
     def __init__(self, movie: Movie, sequence: int, when_screened: datetime) -> None:
         # Private instance variable __movie which stores the movie object
