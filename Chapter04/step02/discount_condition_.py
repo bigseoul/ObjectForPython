@@ -1,11 +1,13 @@
 from datetime import date, datetime
 
 from discount_condition_type_ import DiscountConditionType
-from multipledispatch import dispatch
+
+# from multipledispatch import dispatch
 
 
 class DiscountCondition:
     """
+    도메인의 끝 단부터 정리 시작, DiscountCondition이 uml의 끝.
     2. step1에서 관리할 데이터를 결정해 놓음.
     """
 
@@ -57,8 +59,43 @@ class DiscountCondition:
     
     """
 
-    @dispatch(int, datetime)
-    def is_discountable(self, day_of_week, time) -> bool:  # type: ignore
+    # @dispatch(int, datetime)
+    # def is_discountable(self, day_of_week, time) -> bool:  # type: ignore
+    #     if self.__dc_type != DiscountConditionType.PERIOD:
+    #         raise ValueError("Wrong DC type for PERIOD")
+    #     return (
+    #         self.__day_of_week == day_of_week
+    #         and self.__start_time <= time
+    #         and self.__end_time >= time
+    #     )
+
+    # @dispatch(int)
+    # def is_discountable(self, sequence) -> bool:  # type: ignore
+    #     if self.__dc_type != DiscountConditionType.SEQUENCE:
+    #         raise ValueError("Wrong DC type for SEQUENCE")
+    #     return self.__sequence == sequence
+
+    "dispactch 데코레이터 없는 코드"
+
+    def is_discountable(self, *args):
+        # isinstance로 인자의 유형을 검사
+        if len(args) == 1 and isinstance(args[0], int):
+            return self.__is_discountable_sequence(args[0])
+        elif (
+            len(args) == 2
+            and isinstance(args[0], int)
+            and isinstance(args[1], datetime)
+        ):
+            return self.__is_discountable_period(args[0], args[1])
+        else:
+            raise ValueError("Invalid arguments")
+
+    def __is_discountable_sequence(self, sequence) -> bool:
+        if self.__dc_type != DiscountConditionType.SEQUENCE:
+            raise ValueError("Wrong DC type for SEQUENCE")
+        return self.__sequence == sequence
+
+    def __is_discountable_period(self, day_of_week, time) -> bool:
         if self.__dc_type != DiscountConditionType.PERIOD:
             raise ValueError("Wrong DC type for PERIOD")
         return (
@@ -66,9 +103,3 @@ class DiscountCondition:
             and self.__start_time <= time
             and self.__end_time >= time
         )
-
-    @dispatch(int)
-    def is_discountable(self, sequence) -> bool:  # type: ignore
-        if self.__dc_type != DiscountConditionType.SEQUENCE:
-            raise ValueError("Wrong DC type for SEQUENCE")
-        return self.__sequence == sequence

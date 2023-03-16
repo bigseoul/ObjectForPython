@@ -128,9 +128,9 @@ class Movie:
             discount_condition: DiscountCondition = condition
             if discount_condition.get_type() == DiscountConditionType.PERIOD:
                 if discount_condition.is_discountable(
-                    day_of_week=when_screened.weekday(), time=when_screened  # type: ignore
+                    when_screened.weekday(), when_screened  # type: ignore
                 ):
                     return True
-            elif discount_condition.is_discountable(sequence=sequence):
+            elif discount_condition.is_discountable(sequence):
                 return True
         return False

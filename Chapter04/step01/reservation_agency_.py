@@ -16,10 +16,10 @@ class ReservationAgency:
     def reserve(
         self, screening: "Screening", customer: "Customer", audience_count: int
     ) -> Reservation:
-        if screening.movie is None:
+        if screening.movie is None:  # 1 of 4: screeing에 의존
             raise ValueError("Screening movie is None")
         else:
-            movie: "Movie" = screening.movie
+            movie: "Movie" = screening.movie  # 2 of 4: movie 의존
         """
         할인 가능 여부 체크
         P182) 디미터의 법칙 위반 
@@ -27,7 +27,7 @@ class ReservationAgency:
         discountable = False
 
         # Discountcondition에 대해 루프를 돌면서 할인 가능 여부를 확인한다. discountable 변수의 값을 체크하고 적절한 할인 정책에 따라 예매 요금을 계산한다.
-        for condition in movie.discount_conditions:
+        for condition in movie.discount_conditions:  # 3 of 4: condition 의존
             condition: "DiscountCondition" = condition
             if condition.type == DiscountConditionType.PERIOD:
                 # when_screened 게터에 리턴 타입 힌트 줌.
@@ -77,4 +77,6 @@ class ReservationAgency:
             fee: "Money" = movie.fee  # type: ignore
             fee = fee.times(audience_count)
 
-        return Reservation(customer, screening, fee, audience_count)
+        return Reservation(
+            customer, screening, fee, audience_count
+        )  # 4 of 4: Reservation 의존
