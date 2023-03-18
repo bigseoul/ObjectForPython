@@ -1,0 +1,30 @@
+@startuml
+Movie "1" ..> "many" Screening
+Movie "1" -- "1 many"  DiscountCondition
+Screening "1" -- "many" Customer
+Screening "1" -- "many" Reservation
+
+class Screening{
+    Movie Movie
+    int squence
+    +reserve()
+    -calculate_fee()
+}
+
+Class Movie{
+    string title
+    int fee
+    string discount_conditions
+
+    +calculate_movie_fee()
+    -is_discountable()
+}
+
+class Reservation{
+    Screening screening
+    string name
+    int total_fee
+    int audience_count
+
+}
+@enduml

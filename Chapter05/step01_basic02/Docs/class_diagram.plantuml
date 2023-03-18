@@ -1,0 +1,48 @@
+@startuml
+Main --Screening
+Main --constants
+Movie "1" --> "many" Screening
+Movie "1" -- "1 many"  DiscountCondition
+Screening "1" -- "many" Customer
+Screening "1" -- "many" Reservation
+
+class Screening{
+    Movie Movie
+    int squence
+    datetime when_screened
+    +reserve()
+    -calculate_fee()
+    +get_when_screened()
+    +get_sequence()
+}
+
+Class Movie{
+    string title
+    int fee
+    string discount_conditions
+    MovieType movie_type
+
+    +calculate_movie_fee()
+    -is_discountable()
+}
+
+class Reservation{
+    Screening screening
+    string name
+    int total_fee
+    int audience_count
+
+}
+
+enum MovieType{
+    AMOUNT_DISCOUNT
+    PERCENT_DISCOUNT
+    NONE_DISCOUNT
+}
+
+enum DiscountConditionType{
+    SEQUENCE_DISCOUNT
+    PERIOD_DISCOUNT
+    NONE_DISCOUNT
+}
+@enduml

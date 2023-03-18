@@ -1,0 +1,73 @@
+@startuml
+Main --Screening
+Movie "1" <-- "many" Screening
+Movie "1" -> "1 many"  DiscountCondition
+Screening "1" <- "many" Reservation
+Reservation "many" -> "1" Customer
+
+
+class Screening{
+    Movie Movie
+    int squence
+    datetime when_screened
+    +Reservation reserve()
+    -Money calculate_fee()
+    +datetime get_when_screened()
+    +int get_sequence()
+}
+
+Class Movie{
+    string title
+    int fee
+    string discount_conditions
+    MovieType movie_type
+
+    +Money calculate_movie_fee()
+    -bool is_discountable()
+    -Money calculate_discount_amount()
+    -Money calculate_amount_discount_amount()
+    -Money calculate_percent_discount_amount()
+    -Money calculate_none_discount_amount()
+}
+
+class DiscountCondition{
+    MovieType type
+    int sequence
+    DAY_OF_WEEK day_of_week
+    date start_time
+    date end_time
+
+    +bool is_satisfiedBy()
+    -bool is_satisfied_by_period()
+    -bool is_satisfied_by_sequence()
+}
+
+class Reservation{
+    Screening screening
+    Customer customer
+    Money total_fee
+    int audience_count
+
+}
+
+class Customer{
+    string names
+    int id
+}
+
+enum MovieType{
+    AMOUNT_DISCOUNT
+    PERCENT_DISCOUNT
+    NONE_DISCOUNT
+}
+
+enum DiscountConditionType{
+    SEQUENCE_DISCOUNT
+    PERIOD_DISCOUNT
+    NONE_DISCOUNT
+}
+
+enum Constants{
+    DAY_OF_WEEK
+}
+@enduml

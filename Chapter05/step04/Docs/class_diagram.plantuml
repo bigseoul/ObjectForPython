@@ -1,0 +1,96 @@
+@startuml
+Screening "many" --> "1" AbsMovie
+Reservation "many" --> "1" Screening
+AbsMovie "1" --> "many" AbsDiscountCondition
+PeriodCondition "many" ..|> "1" AbsDiscountCondition
+SequenceCondition "many" ..|> "1" AbsDiscountCondition
+AmountDiscountMovie --|> AbsMovie
+PercentDiscountMovie --|> AbsMovie
+NonetDiscountMovie --|> AbsMovie
+
+class Screening{
+    Movie Movie
+    int squence
+    datetime when_screened
+    +Reservation reserve()
+    -Money calculate_fee()
+    +datetime get_when_screened()
+    +int get_sequence()
+}
+
+abstract class AbsMovie{
+    string title
+    int fee
+    time running_time
+    string discount_conditions
+
+    +Money calculate_movie_fee()
+    -bool is_discountable()
+    {abstract} #Money calculate_discount_amount()
+}
+
+class AmountDiscountMovie{
+    Money calculate_discount_amount
+
+    #calculate_discount_amount()
+}
+
+class PercentDiscountMovie{
+    double percent
+
+    #calculate_discount_amount()
+}
+
+class NonetDiscountMovie{
+    
+    #calculate_discount_amount()
+
+}
+
+class PeriodCondition{
+    DAY_OF_WEEK day_of_week
+    date start_time
+    date end_time
+
+    +bool is_satisfiedBy()
+}
+
+class SequenceCondition{
+    int sequence
+
+    +bool is_satisfiedBy()
+}
+
+interface AbsDiscountCondition{
+    {abstract} +bool is_satisfiedBy()
+}
+
+class Reservation{
+    Screening screening
+    Customer customer
+    Money total_fee
+    int audience_count
+
+}
+
+class Customer{
+    string names
+    int id
+}
+
+enum MovieType{
+    AMOUNT_DISCOUNT
+    PERCENT_DISCOUNT
+    NONE_DISCOUNT
+}
+
+enum DiscountConditionType{
+    SEQUENCE_DISCOUNT
+    PERIOD_DISCOUNT
+    NONE_DISCOUNT
+}
+
+enum Constants{
+    DAY_OF_WEEK
+}
+@enduml
