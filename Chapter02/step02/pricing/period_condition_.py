@@ -1,7 +1,7 @@
 from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
-from constant_ import DAY_OF_WEEK
+from constant_ import DAY_OF_WEEKS
 from discount_condition_ import AbsDiscountCondition
 
 if TYPE_CHECKING:

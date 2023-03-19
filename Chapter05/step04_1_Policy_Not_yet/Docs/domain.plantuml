@@ -1,9 +1,0 @@
-@startuml
-Screening "1" -- "many" Reservation
-Screening "many" -- "1" Movie
-Movie <|-- AmountDC
-Movie <|-- PercentDC
-Movie "1" -- "1 many" DiscountCondition
-DiscountCondition <|-- SquenceCon
-DiscountCondition <|-- PeriodCon
-@enduml

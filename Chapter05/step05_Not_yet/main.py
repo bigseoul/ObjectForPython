@@ -1,36 +1,56 @@
-from datetime import date, time, datetime
-from constant_ import DAY_OF_WEEK
+from datetime import datetime, time
+
+from amount_discount_movie_ import AmountDiscountMovie
+from constant_ import DAY_OF_WEEKS
 from customer_ import Customer
-from discount_condition_ import DiscountCondition
-from discount_condition_type_ import DiscountConditionType
-from movie_ import Movie
 from money_ import Money
-from movie_type_ import MovieType
-from reservation_ import Reservation
-from reservation_agency_ import ReservationAgency
+from none_discount_movie_ import NoneDiscountMovie
+from percent_discount_movie_ import PercentDiscountMovie
+from period_condition_ import PeriodCondition
 from screening_ import Screening
+from sequence_condition_ import SquenceCondition
 
 if __name__ == "__main__":
-    # dc = DiscountCondition()
-    # dc.type = DiscountConditionType.PERIOD
-    # dc.day_of_week = DAY_OF_WEEK.get("Friday")
-    # dc.start_time = datetime(2021, 8, 13, 17, 0, 0)
-    # dc.end_time = datetime(2021, 8, 13, 21, 0, 0)
 
-    # movie객체에서 생성자 오버로드 여러 개 해줘야 함.
-    # @classmethod 데코레이터 이용함.
-    # 각 생성자에 맞는 클래스메서드명 붙이기
-    # free_guy = Movie.from_Movie_for_non_discount("Free guy", time(1, 55), 10000)
-    # free_guy = Movie.from_Movie_for_discount_amount(
-    #     "free guy", time(1, 55), Money.wons(14000), Money.wons(5000), dc
-    # )
+    """순번 조건, 1회차 대상"""
+    sq_condition1 = SquenceCondition(1)
 
-    # setter/getter 이렇게 해도 되는군아. Screening __init__에 받는 movie, seq, when 인자 없음.
-    # screening = Screening()
-    # screening.movie = free_guy
-    # screening.sequence = 1
-    # screening.when_screened = datetime(2021, 8, 13, 18, 30, 0)
+    """기간 조건, 금요일, 8월 17시~21시까지, 0은 nothing"""
+    period_condition1 = PeriodCondition(
+        DAY_OF_WEEKS.get("Monday"), time(9, 00), time(19, 00)
+    )
 
-    # reservation = ReservationAgency.reserve(screening, Customer("bigseoul", "0001"), 1)
-    # print("Movie.fee=", free_guy.fee.check_amount())
-    # print("Reservation.fee=", reservation.fee.check_amount())
+    the_batman = AmountDiscountMovie(
+        "the batman",
+        time(1, 53),
+        Money.from_wons(18000),
+        Money.from_wons(10000),
+        sq_condition1,
+        period_condition1,
+    )
+    screening = Screening(the_batman, 1, datetime(2022, 11, 14, 18, 30, 0))
+
+    the_batman2 = PercentDiscountMovie(
+        "the batman",
+        time(1, 53),
+        Money.from_wons(18000),
+        0.1,
+        sq_condition1,
+        period_condition1,
+    )
+    screening2 = Screening(the_batman2, 1, datetime(2022, 11, 14, 18, 30, 0))
+
+    the_batman3 = NoneDiscountMovie(
+        "the batman",
+        time(1, 53),
+        Money.from_wons(18000),
+        sq_condition1,
+        period_condition1,
+    )
+    screening3 = Screening(the_batman3, 1, datetime(2022, 11, 14, 18, 30, 0))
+
+    reservation = screening.reserve(Customer("steve", 101), 2)
+    reservation2 = screening2.reserve(Customer("dave", 102), 1)
+    reservation3 = screening3.reserve(Customer("miz", 103), 2)
+
+    print(reservation3)

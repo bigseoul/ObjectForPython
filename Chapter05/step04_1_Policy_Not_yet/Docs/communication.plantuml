@@ -1,7 +1,0 @@
-@startuml
-Main -- Screening : 1 reserve >
-Screening -- Movie : 2 calculate fee >
-Movie -- PeriodConditon : 3 is it satisfied? >
-Movie -- SquenceConditon : 3 is it satisfied? >
-Screening -- Reservation : 4 create >
-@enduml

@@ -3,21 +3,18 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 from datetime import datetime, time
-from constant_ import DAY_OF_WEEK
 
-from screening_ import Screening
-
+from constant_ import DAY_OF_WEEKS
+from customer_ import Customer
+from money_ import Money
 from movie_ import Movie
 from movie_type_ import MovieType
+from period_condition_ import PeriodCondition
+from screening_ import Screening
 
 # from discount_condition_ import DiscountCondition
 # from discount_condition_type_ import DiscountConditionType
 from sequence_condition_ import SquenceCondition
-from period_condition_ import PeriodCondition
-
-from customer_ import Customer
-from money_ import Money
-
 
 if __name__ == "__main__":
 
@@ -26,7 +23,7 @@ if __name__ == "__main__":
     #     DiscountConditionType.SEQUENCE_DISCOUNT,
     #     1,
     # )
-    
+
     sq_condition1 = SquenceCondition(1)
 
     """기간 조건, 금요일, 8월 13일 17시~21시까지, 0은 nothing"""
@@ -37,11 +34,9 @@ if __name__ == "__main__":
     #     time(9, 00),
     #     time(19, 00),
     # )
-    
+
     period_condition1 = PeriodCondition(
-        DAY_OF_WEEK.get("Monday"),
-        time(9, 00),
-        time(19, 00)
+        DAY_OF_WEEKS.get("Monday"), time(9, 00), time(19, 00)
     )
 
     the_batman = Movie(
@@ -50,8 +45,8 @@ if __name__ == "__main__":
         Money.wons(10000),
         10,
         MovieType.AMOUNT_DISCOUNT,
-        sq_condition1, 
-        period_condition1
+        sq_condition1,
+        period_condition1,
     )
     screening = Screening(the_batman, 1, datetime(2022, 11, 14, 18, 30, 0))
 

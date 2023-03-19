@@ -1,6 +1,6 @@
 from datetime import datetime, time
 
-from constant_ import DAY_OF_WEEK
+from constant_ import DAY_OF_WEEKS
 from customer_ import Customer
 from money_ import Money
 from movie_ import Movie
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     print(reservation)
 
     """PeriodCondition 8월 27일 토 + PercentDiscountPolicy"""
-    pc1 = PeriodCondition(DAY_OF_WEEK.get("Saturday"), time(9, 00), time(13, 00))
+    pc1 = PeriodCondition(DAY_OF_WEEKS.get("Saturday"), time(9, 00), time(13, 00))
     pdp = PercentDiscountPolicy(0.1, pc1)  # type: ignore
     the_book_of_fish = Movie("자산어보", time(2, 6), Money.from_wons(12000), pdp)
     screening2 = Screening(the_book_of_fish, 3, datetime(2022, 8, 27, 11, 50, 00))
@@ -38,7 +38,20 @@ if __name__ == "__main__":
     star_wars = Movie(
         "Star Was", time(3, 30), Money.from_wons(10000), NonDiscountPolicy()
     )
+
+    """
+    합성을 통한 정책 변경. 
+    5장(Chapter05 step04)은 할인 정책을 변경할 수 없음.
+    할인 정책을 구현하기 위해 상속을 이용하고 있기 때문. 
+
+    5장처럼 movie에 상속된게 아니라, 2장처럼 정책만 따로 분리한 뒤 Movie에 합성 시키면 됨.  
+    합성이란 객체의 인자로 들어가는 것.
+    상속은 부모를 서브타이핑한 것??? 
+    
+    """
+    # star_wars.change_discount_policy(PercentDiscountPolicy(0.1, pc1))
     screening3 = Screening(star_wars, 1, datetime(2022, 8, 28, 11, 50, 00))
 
     reservation3 = screening3.reserve(Customer("Tohee", 125), 1)
+
     print(reservation3)
