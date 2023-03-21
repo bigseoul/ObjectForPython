@@ -16,6 +16,7 @@ if __name__ == "__main__":
     sc1 = SequenceCondition(1)
     sc2 = SequenceCondition(2)
     adp = AmountDiscountPolicy(Money.from_wons(10000), sc1, sc2)  # type: ignore
+    nd = NonDiscountPolicy()
 
     """ 영화이름, 상영시간, 영화금액, 할인정책이 인자"""
     godzilla_vs_kong = Movie("고질라VS콩", time(1, 53), Money.from_wons(18000), adp)

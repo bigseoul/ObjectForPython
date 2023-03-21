@@ -25,7 +25,7 @@ class AbsDiscountPolicy(metaclass=ABCMeta):
         self.__conditions = list(args)
 
     def __str__(self) -> str:
-        return f"할인정책: {self.__conditions}"
+        return f"할인정책/조건:{self}, {self.__conditions}"
 
     def calculate_discount_amount(self, screening: "Screening") -> "Money":
         """

@@ -21,4 +21,4 @@ class PercentDiscountMovie(AbsMovie):
         self.__percent = percent
 
     def _calculate_discount_amount(self):
-        return self._getFee() * self.__percent
+        return self._getFee() * self.__percent  # movie의 getFee()

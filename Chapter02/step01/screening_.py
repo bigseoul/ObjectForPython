@@ -34,9 +34,6 @@ class Screening:
         return self.__moive.get_fee()
 
     def reserve(self, customer: "Customer", audience_count: int) -> Reservation:
-        """
-        private
-        """
         return Reservation(
             customer, self, self.__calculate_fee(audience_count), audience_count
         )

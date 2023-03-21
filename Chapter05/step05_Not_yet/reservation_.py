@@ -9,17 +9,21 @@ if TYPE_CHECKING:
 
 class Reservation:
     def __init__(
-        self, screen: "Screening", name: Customer, total_fee: Money, audience_count: int
+        self,
+        customer: Customer,
+        screen: "Screening",
+        total_fee: Money,
+        audience_count: int,
     ) -> None:
         self.__screen = screen
-        self.__name = name
-        self.__total_fee = total_fee
+        self.__customer = customer
         self.__audience_count = audience_count
+        self.__total_fee = total_fee
 
     def __str__(self) -> str:
         return (
             f"Screen: {self.__screen}\n"
-            f"Name: {self.__name}\n"
+            f"Customer: {self.__customer}\n"
             f"Total Fee: {self.__total_fee}\n"
             f"Audience Count: {self.__audience_count}"
         )

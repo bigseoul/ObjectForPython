@@ -1,3 +1,40 @@
-p164
+A. 비즈니스 로직 흐름 재정리. main부터 
+-목적: DiscountPolicy를 따로 분리해 합성한다.
+-main 흐름.
 
-2창처럼 무비의 상속계층에 있던 할인 정책을 DiscountPolicy로 분리한 다음에 Movie에 합성시키기
+B. 구조변경
+1.변경의 시작점인 추상 DiscountPolicy부터 추가, 
+- NonDiscountPolicy(DiscountPolicy) 생성. //일단 할인 조건 없음.
+-할인 금액 알려준다. calculate_discount_amount() 공통 메서드
+-할인 조건과 상영조건이 부합하는 지 확인한다.
+-아는 정보, 할인 조건
+
+2. 일반 Moive로 수정
+-영화 정보
+-합성: 할인정책 정보(할인 조건) // 할인 조건에 따라 가격할인 정책이 적용되는 등
+
+C. main문 정리, 객체 생성
+1.상영 객체 만들기
+2. 할인조건 생성 
+3. 할인정책 생성(합성: 할인조건)  #NonDiscountPolicy만 만듦.
+4. 영화 생성(영화정보들)
+5. 상영 생성 (합성: 영화, 합성: 할인정책)
+
+D. 예약 객체 만들기
+1. 예약 시행. Screening객체에게 reserve(고객, 인원 수) 메시지 보냄.
+2. Screening객체는 movie객체에게 영화 요금 알려달라고 calculate_movie_fee(self) 메시지 보냄.
+-여기서 self는 screening임. screening 객체가 할인 정책(조건)에서 비교할 상영날짜나 회차정보, 가격정보를 가지고 있기 때문.
+3. 무비객체는 할인정책에게 이거 할인된 가격(영화요금 기반으로 비율로 차감할 수 있음) 알려달라고 메시지 보냄. calculate_discount_amount()
+4. Test, 기준 NonDiscountPolicy
+
+E. 할인 조건이 있는 케이스
+1. DiscountPolicy에서 할인 조건 확인
+- 조건 확인 되면,  AmountDiscountPolicy나 PercentDiscountPolicy에서 계산해줌.
+
+2. AmountDiscountPolicy() 만듦.
+- 할인 정책 정보 알고 있음.
+- 할인 정책에 맞는 요금 할인해서 반환. //인자가 뭐로 들어올지 정해워야 겠다.
+
+3. DiscountPolicy의 calculate_discount_amount() 수정
+- 할인 조건이 상영 영화 정보와 맞는지 비교한 뒤, 맞으면 True 리턴
+- discount_condition_. is_satisfied_by()로 확인한다.
