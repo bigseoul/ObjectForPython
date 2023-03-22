@@ -28,3 +28,6 @@ class Screening:
 
     def get_sequence(self) -> int:
         return self.__sequence
+
+    def get_movie_fee(self) -> Money:
+        return self.__movie.get_fee()

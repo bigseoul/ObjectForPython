@@ -20,5 +20,9 @@ class Movie:
         temp = self.__fee - self.__discount_policy.calculate_discount_amount(screening)
         return temp
 
-    # def _getFee(self) -> "Money":
-    #     return self.__fee
+    def get_fee(self) -> Money:
+        return self.__fee
+
+    def change_discount_policy(self, discount_policy: "DiscountPolicy"):
+        """5장 164쪽, 정책 변경"""
+        self.__discount_policy = discount_policy

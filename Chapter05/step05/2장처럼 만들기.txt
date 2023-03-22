@@ -38,3 +38,11 @@ E. 할인 조건이 있는 케이스
 3. DiscountPolicy의 calculate_discount_amount() 수정
 - 할인 조건이 상영 영화 정보와 맞는지 비교한 뒤, 맞으면 True 리턴
 - discount_condition_. is_satisfied_by()로 확인한다.
+
+4. PercenttDiscountPolicy()
+-영화가격에 비율을 곱해 할인 가격 계산해야 함. 
+-스크린>무비를 통해 가격 get_fee
+
+F. 할인 정책 바꾸기
+1. change_discount_policy()
+-movie에서 정책 바꾸기
