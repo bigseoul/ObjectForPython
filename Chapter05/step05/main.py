@@ -1,46 +1,47 @@
 from datetime import datetime, time
 
-from amount_discount_policy_ import AmountDiscountPolicy
-from constant_ import DAY_OF_WEEKS
+from constant_ import DAY_OF_WEEK
 from customer_ import Customer
+from discount_condition_ import DiscountCondition
+from discount_condition_type_ import DiscountConditionType
 from money_ import Money
 from movie_ import Movie
-from non_discount_policy_ import NoneDiscountPolicy
-from percent_discount_policy_ import PercentDiscountPolicy
-from period_condition_ import PeriodCondition
+from reservation_agency_ import ReservationAgency
 from screening_ import Screening
-from sequence_condition_ import SquenceCondition
 
 if __name__ == "__main__":
-    # nondisocunt 확인
+    dc = DiscountCondition()
+    dc.type = DiscountConditionType.PERIOD
+    dc.day_of_week = DAY_OF_WEEK.get("Friday")
+    dc.start_time = datetime(2021, 8, 13, 17, 0, 0)
+    dc.end_time = datetime(2021, 8, 13, 21, 0, 0)
 
-    # 상영 정보 만들기
-    # 1. 할인조건 생성. 순서(이거부턴 완성)와 기간방식 할인
-    sq_condition1 = SquenceCondition(1)
-    period_condition1 = PeriodCondition(
-        DAY_OF_WEEKS.get("Saturday"), time(9, 00), time(13, 00)
+    dc2 = DiscountCondition()
+    dc2.type = DiscountConditionType.PERIOD
+    dc2.day_of_week = DAY_OF_WEEK.get("Saterday")
+    dc2.start_time = datetime(2021, 8, 13, 17, 0, 0)
+    dc2.end_time = datetime(2021, 8, 13, 21, 0, 0)
+    # movie객체에서 생성자 오버로드 여러 개 해줘야 함.
+    # @classmethod 데코레이터 이용함.
+    # 각 생성자에 맞는 클래스메서드명 붙이기
+    free_guy = Movie.from_movie_for_discount_amount(
+        "free guy", time(1, 55), Money.from_wons(14000), Money.from_wons(5000), dc, dc2
     )
 
-    # 2. 할인정책 생성(합성: 할인조건)
-    nc1 = NoneDiscountPolicy()
-    adp1 = AmountDiscountPolicy(Money.from_wons(2500), sq_condition1)
-    pdp1 = PercentDiscountPolicy(0.1, sq_condition1)
-    adp2 = AmountDiscountPolicy(Money.from_wons(2500), period_condition1)
+    free_guy2 = Movie.from_movie_for_non_discount(
+        "Free guy", time(1, 55), Money.from_wons(10000)
+    )
+    free_guy3 = Movie.from_movie_for_discount_percent(
+        "free gey3", time(1, 55), Money.from_wons(15000), 0.1, dc, dc2
+    )
 
-    # 3. 영화 생성
-    the_batman = Movie("the batman", time(1, 53), Money.from_wons(18000), nc1)
-    squid_game = Movie("squid game", time(2, 0), Money.from_wons(15000), adp1)
-    the_glory = Movie("the glory", time(1, 0), Money.from_wons(10000), adp2)
+    # setter/getter 이렇게 해도 되는군아. Screening __init__에 받는 movie, seq, when 인자 없음.
+    screening = Screening()
+    screening.movie = free_guy
+    screening.sequence = 1
+    screening.when_screened = datetime(2021, 8, 13, 18, 30, 0)
 
-    # 4. 상영 생성 (합성: 영화, 합성: 할인정책)
-    screen_for_the_batman = Screening(the_batman, 1, datetime(2023, 3, 21, 18, 00, 00))
-    screen_for_squid_game = Screening(squid_game, 1, datetime(2023, 3, 21, 18, 00, 00))
-    screen_for_the_glory = Screening(the_glory, 1, datetime(2023, 3, 25, 10, 00, 00))
-
-    # 예약 만들기
-    # 5. 예약 시행. Screening_영화이름_Non.Rerserve(고객 정보, 인원 수)
-    reservation_for_steve = screen_for_the_batman.reserve(Customer("steve", 101), 2)
-    reservation_for_miz = screen_for_squid_game.reserve(Customer("miz", 102), 1)
-    reservation_for_minsoo = screen_for_the_glory.reserve(Customer("minsoo", 103), 1)
-
-    print(reservation_for_minsoo)
+    agency = ReservationAgency()
+    reservation = agency.reserve(screening, Customer("bigseoul", 2), 1)
+    print("Movie.fee=", free_guy.fee)
+    print("Reservation.fee=", reservation.fee)

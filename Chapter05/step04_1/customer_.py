@@ -4,4 +4,4 @@ class Customer:
         self.__id = id
 
     def __str__(self) -> str:
-        return f"Customer(name={self.__name}, id={self.__id})"
+        return f"{self.__name}, {self.__id}"

@@ -1,33 +1,40 @@
 from datetime import datetime
-from typing import TYPE_CHECKING
-
-from money_ import Money
-from movie_ import Movie
-from reservation_ import Reservation
-
-if TYPE_CHECKING:
-    from customer_ import Customer
 
 
 class Screening:
-    def __init__(self, movie: Movie, sequence: int, when_screened: datetime) -> None:
+    # 자바처럼 디폴트 생성자를 만들어주지 않으니, 만드는데
+    # None으로 해도 되나?
+    # https://gongmeda.tistory.com/12
+    def __init__(self, movie=None, sequence=None, when_screened=None):
         self.__movie = movie
-        self.__sequence = sequence  # Screening sequence
-        self.__when_screened = when_screened  # Screening date
+        self.__sequence = sequence
+        self.__when_screened = (
+            when_screened if when_screened else datetime.now()
+        )  # set default value if None
 
-    def reserve(self, customer: "Customer", audience_count: int) -> Reservation:
-        total_fee = self._calculate_fee(audience_count)
-        return Reservation(customer, self, total_fee, audience_count)
+    def __str__(self):
+        return f"Screening of {self.movie} at {self.__when_screened}"
 
-    def _calculate_fee(self, audience_count: int) -> Money:
-        # screeing객체를 movie에 던저줌. 영화 요금 받아오면 인원 수 곱함.
-        return self.__movie.calculate_movie_fee(self) * audience_count
+    @property
+    def movie(self):
+        return self.__movie
 
-    def get_when_screened(self) -> datetime:
-        return self.__when_screened
+    @movie.setter
+    def movie(self, movie):
+        self.__movie = movie
 
-    def get_sequence(self) -> int:
+    @property
+    def sequence(self):
         return self.__sequence
 
-    def get_movie_fee(self) -> Money:
-        return self.__movie.get_fee()
+    @sequence.setter
+    def sequence(self, sequence):
+        self.__sequence = sequence
+
+    @property
+    def when_screened(self) -> datetime:
+        return self.__when_screend
+
+    @when_screened.setter
+    def when_screened(self, when_screend):
+        self.__when_screend = when_screend
