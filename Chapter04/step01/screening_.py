@@ -33,8 +33,8 @@ class Screening:
 
     @property
     def when_screened(self) -> datetime:
-        return self.__when_screend
+        return self.__when_screened
 
     @when_screened.setter
-    def when_screened(self, when_screend):
-        self.__when_screend = when_screend
+    def when_screened(self, when_screened):
+        self.__when_screened = when_screened

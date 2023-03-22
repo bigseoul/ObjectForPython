@@ -36,10 +36,7 @@ if __name__ == "__main__":
     )
 
     # setter/getter 이렇게 해도 되는군아. Screening __init__에 받는 movie, seq, when 인자 없음.
-    screening = Screening()
-    screening.movie = free_guy
-    screening.sequence = 1
-    screening.when_screened = datetime(2021, 8, 13, 18, 30, 0)
+    screening = Screening(free_guy, 1, datetime(2023, 3, 23, 18, 30, 0))
 
     agency = ReservationAgency()
     reservation = agency.reserve(screening, Customer("bigseoul", 2), 1)
