@@ -1,4 +1,4 @@
-import f_class.employees as employees
+import employees as employees
 
 
 def main(operation, name=""):
@@ -26,6 +26,7 @@ def describe_result(name, pay):
 
 def sum_of_base_pays():
     print(employees.sum_of_base_pays())
+
 
 main(operation="base_pays")
 main(operation="pay", name="아르바이트F")

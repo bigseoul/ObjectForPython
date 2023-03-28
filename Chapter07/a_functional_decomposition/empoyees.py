@@ -3,6 +3,10 @@ base_pays = [400, 300, 250]
 
 
 def main(name):
+    """
+    하향식 기능 분해는 '시스템을 최상위의 가장 추상적인 메인 함수로 정의'하고, 
+    메인 함수를 구현 가능한 수준까지 세부적인 단계로 분해하는 방법이다.
+    """
     tax_rate = get_tax_rate()
     print("세율: ", tax_rate)
     pay = calculate_pay_for(name, tax_rate)
