@@ -12,7 +12,7 @@ https://docs.python.org/ko/3/library/dataclasses.html
 class Employees:
     name: str
     base_pay: float
-    hourly: bool
+    hourly: bool  # 타입을 변수로 구분, 객체지향 위반.
     time_card: int
 
     def calculate_pay(self, tax_rate):
