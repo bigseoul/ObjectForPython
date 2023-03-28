@@ -1,6 +1,7 @@
-from regular_phone_ import RegularPhone
-from money_ import Money
 from datetime import time
+
+from money_ import Money
+from regular_phone_ import RegularPhone
 
 
 class TaxableRegularPhone(RegularPhone):
@@ -8,7 +9,7 @@ class TaxableRegularPhone(RegularPhone):
         super().__init__(amount, seconds)
         self.__tax_rate = tax_rate
 
-    #Override
+    # Override
     def calculate_fee(self) -> Money:
-        fee: Money = super().calculate_fee()
+        fee: Money = super().calculate_fee()  # 슈퍼호출로 결합도 증가
         return fee.plus(fee.times(self.__tax_rate))

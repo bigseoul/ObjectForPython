@@ -1,9 +1,8 @@
 from datetime import time
-from typing import TYPE_CHECKING
 
-from phone_ import Phone
 from call_ import Call
 from money_ import Money
+from phone_ import Phone
 
 
 class NightlyDiscountPhone(Phone):
@@ -18,9 +17,9 @@ class NightlyDiscountPhone(Phone):
         self.__seconds = seconds
         super().__init__()
 
-    """심야통화 한 건 요금 계산"""
     # Override
     def _calculate_call_fee(self, call: "Call") -> "Money":
+        """심야통화 한 건 요금 계산"""
 
         unit_time = (
             self.__seconds.second
