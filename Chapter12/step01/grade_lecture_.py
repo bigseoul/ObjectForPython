@@ -1,6 +1,7 @@
 from statistics import mean
-from lecture_ import Lecture
+
 from grade_ import Grade
+from lecture_ import Lecture
 
 """
 https://www.daleseo.com/python-typing/

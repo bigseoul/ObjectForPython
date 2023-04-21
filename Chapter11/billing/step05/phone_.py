@@ -1,7 +1,7 @@
-from money_ import Money
-from call_ import Call
-from rate_policy_ import RatePolicy
 from basic_rate_policy_ import BasicRatePolicy
+from call_ import Call
+from money_ import Money
+from rate_policy_ import RatePolicy
 
 
 class Phone:
@@ -13,7 +13,7 @@ class Phone:
     """
 
     """
-    rate_policy는 최상위 클래스, 여기에 자식 RegularPolicy 레퍼런드 연결
+    rate_policy는 최상위 클래스, 여기에 자식 RegularPolicy 레퍼런스 연결
     이걸 업캐스팅으로 이해해도 되려나?
     """
 
