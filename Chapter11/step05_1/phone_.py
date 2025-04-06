@@ -6,15 +6,9 @@ from basic_rate_policy_ import BasicRatePolicy
 
 class Phone:
     """
+    이 챕터의 핵심 클래스.
+    핵심 중에 핵심은 calculate_fee 메서드. 이 메스가 rate_policy 메서드를 호출하는 것이 핵심.
     RatePolicy의 참조자가 있다. 이것이 합성. 의존성 주입
-    다양한 종류의 객체와 협력하기 위해 합성 관계를 사용하는 경우,
-    합성되는 객체의 타입을 인터페이스나 추상 클래스로 선언하고 의존성 주입해
-    런타임에 필요한 객체를 설정할 수 있도록 구현하는 것이 일반적
-    """
-
-    """
-    rate_policy는 최상위 클래스, 여기에 자식 RegularPolicy 레퍼런드 연결
-    이걸 업캐스팅으로 이해해도 되려나?
     """
 
     def __init__(self, rate_policy: RatePolicy) -> None:
@@ -27,7 +21,10 @@ class Phone:
     def get_calls(self) -> tuple:
         return tuple(self.__calls)
 
-    """RegularPolicy의 BasicPolicy에 phone객체 주소(self)를 넘김"""
+    """
+    Phone 객체는 RatePolicy 인터페이스를 통해 요금 계산을 요청하며,
+    자신(self)을 전달하여 정책이 통화 기록에 접근할 수 있게 함
+    """
 
     def calculate_fee(self) -> Money:
         return self.__rate_policy.calculate_fee(self)

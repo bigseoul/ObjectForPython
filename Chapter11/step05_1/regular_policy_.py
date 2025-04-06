@@ -6,8 +6,8 @@ from basic_rate_policy_ import BasicRatePolicy
 
 class RegularPolicy(BasicRatePolicy):
     def __init__(self, amount: Money, seconds: time) -> None:
-        self.__amount = amount
-        self.__seconds = seconds
+        self.__amount = amount # 초당 요금
+        self.__seconds = seconds # 초 단위
 
     def _calculate_call_fee(self, call: Call) -> Money:
         unit_time = (

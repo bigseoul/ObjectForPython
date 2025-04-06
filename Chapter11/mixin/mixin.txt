@@ -1,0 +1,43 @@
+trait RateDiscountablePolicy extends BasicRatePolicy {
+  ...
+  override def calculateFee(phone: Phone): Money = {
+    val fee = super.calculateFee(phone)
+    return fee - discountableAmount
+  }
+}
+
+class TaxableRegularPolicy(
+    amount: Money,
+    seconds: Duration,
+    val taxRate: Double)
+  extends RegularPolicy(amount, seconds)
+  with TaxablePolicy
+
+class RateDiscountableNightlyPolicy(
+    nightlyAmount: Money,
+    regularAmount: Money,
+    seconds: Duration,
+    val discountAmount: Money)
+extends NightlyDiscountPolicy(nightlyAmount, regularAmount, seconds)
+with RateDiscountablePolicy
+
+class RateDiscountableAndTaxableRegularPolicy(
+    amount: Money,
+    seconds: Duration,
+    val discaountAmount: Money,
+    val taxRate: Double)
+  extends RegularPolicy(amount, seconds)
+  with TaxablePolicy
+  with RateDiscountablePolicy
+
+
+class TaxableAndRateDiscountableRegularPolicy(
+    amount: Money,
+    seconds: Duration,
+    val discaountAmount: Money,
+    val taxRate: Double)
+extends RegularPolicy(amount, seconds)
+with RateDiscountablePolicy
+with TaxablePolicy
+
+
