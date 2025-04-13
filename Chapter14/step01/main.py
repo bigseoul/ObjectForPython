@@ -36,12 +36,12 @@ if __name__ == "__main__":
     시간대별 방식
     인덱스 0은 제대로 작동, 인덱스 1이 문제 ㅋ. 없는 걸 뺄라닊;; 
     """
-    # call = Call(datetime(2023, 1, 10, 10, 00, 00), datetime(2023, 1, 12, 1, 0, 00))
+    # call = Call(datetime(2023, 1, 1, 10, 00, 00), datetime(2023, 1, 3, 15, 0, 00)) # 1일 10시~3일 15시
 
-    # starts = [time(00, 00, 00), time(18, 59, 59)]
-    # ends = [time(19, 00, 00), time(23, 59, 59)]
-    # durations = [timedelta(seconds=10), timedelta(seconds=10)]
-    # amounts = [Money.wons(18), Money.wons(10)]
+    # starts = [time(00, 00, 00), time(18, 59, 59)]  # 00:00:00~18:59:59
+    # ends = [time(19, 00, 00), time(23, 59, 59)]  # 19:00:00~23:59:59
+    # durations = [timedelta(seconds=10), timedelta(seconds=10)]  # starts/ends 시간대 별 단위시간
+    # amounts = [Money.wons(18), Money.wons(15)]  # starts/ends 시간대 별 단위요금
 
     # tdp = TimeOfDayDiscountPolicy(starts, ends, durations, amounts)
 
@@ -50,11 +50,11 @@ if __name__ == "__main__":
     # print(phone.calculate_fee().check_amount())
 
     """요일별 방식"""
-    # call = Call(datetime(2023, 1, 28, 10, 00, 00), datetime(2023, 1, 29, 1, 0, 00))
+    # call = Call(datetime(2023, 1, 28, 10, 00, 00), datetime(2023, 1, 29, 1, 0, 00)) # 28일 10시~29일 1시
     # dowd = DayOfWeekDiscountRule(
-    #     [DAY_OF_WEEK.get("Saturday"), DAY_OF_WEEK.get("Sunday")],
+    #     [DAY_OF_WEEK.get("Saturday"), DAY_OF_WEEK.get("Sunday")], 
     #     timedelta(seconds=10),
-    #     Money.wons(10),
+    #     Money.wons(19),
     # )
     # # print(dowd.calculate(call.get_interval()).check_amount())
 

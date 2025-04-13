@@ -12,7 +12,7 @@ from duration_fee_condition_ import DurationFeeCondition
 
 if __name__ == "__main__":
 
-    """시간대별 정책
+    #시간대별 정책
 
     call_1 = Call(datetime(2023, 1, 28, 8, 00, 00), datetime(2023, 1, 28, 10, 00, 00))
     call_2 = Call(datetime(2023, 1, 28, 12, 00, 00), datetime(2023, 1, 28, 14, 00, 00))
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     phone_tod = Phone(bp_tod)
     phone_tod.call(call_1)
     print(phone_tod.calculate_fee().check_amount())
-    """
+    
 
     """요일별 정책
     call_3 = Call(datetime(2023, 2, 10, 23, 00, 00), datetime(2023, 2, 11, 1, 00, 00))
@@ -58,23 +58,23 @@ if __name__ == "__main__":
     """
 
     "구간별 정책"
-    call_5 = Call(datetime(2023, 2, 10, 22, 00, 00), datetime(2023, 2, 10, 23, 0, 0))
-    call_6 = Call(datetime(2023, 2, 10, 23, 00, 00), datetime(2023, 2, 11, 1, 00, 00))
+    # call_5 = Call(datetime(2023, 2, 10, 22, 00, 00), datetime(2023, 2, 10, 23, 0, 0))
+    # call_6 = Call(datetime(2023, 2, 10, 23, 00, 00), datetime(2023, 2, 11, 1, 00, 00))
 
-    df_0_to_59 = DurationFeeCondition(timedelta(seconds=0), timedelta(seconds=59))
-    df_60_to_119 = DurationFeeCondition(timedelta(seconds=60), timedelta(seconds=119))
-    df_120_to_max = DurationFeeCondition(timedelta(seconds=120), timedelta.max)
+    # df_0_to_59 = DurationFeeCondition(timedelta(seconds=0), timedelta(seconds=59))
+    # df_60_to_119 = DurationFeeCondition(timedelta(seconds=60), timedelta(seconds=119))
+    # df_120_to_max = DurationFeeCondition(timedelta(seconds=120), timedelta.max)
 
-    fpd_0_to_59 = FeePerDuration(Money.wons(50), timedelta(seconds=10))
-    fpd_60_to_119 = FeePerDuration(Money.wons(30), timedelta(seconds=10))
-    fpd_120_to_max = FeePerDuration(Money.wons(10), timedelta(seconds=10))
+    # fpd_0_to_59 = FeePerDuration(Money.wons(50), timedelta(seconds=10))
+    # fpd_60_to_119 = FeePerDuration(Money.wons(30), timedelta(seconds=10))
+    # fpd_120_to_max = FeePerDuration(Money.wons(10), timedelta(seconds=10))
 
-    fr_0_to_59 = FeeRule(df_0_to_59, fpd_0_to_59)
-    fr_0_to_119 = FeeRule(df_60_to_119, fpd_60_to_119)
-    fr_120_to_max = FeeRule(df_120_to_max, fpd_120_to_max)
+    # fr_0_to_59 = FeeRule(df_0_to_59, fpd_0_to_59)
+    # fr_0_to_119 = FeeRule(df_60_to_119, fpd_60_to_119)
+    # fr_120_to_max = FeeRule(df_120_to_max, fpd_120_to_max)
 
-    bp_df = BasicRatePolicy(fr_0_to_59, fr_0_to_119, fr_120_to_max)
-    phone_df = Phone(bp_df)
-    phone_df.call(call_5)
+    # bp_df = BasicRatePolicy(fr_0_to_59, fr_0_to_119, fr_120_to_max)
+    # phone_df = Phone(bp_df)
+    # phone_df.call(call_5)
 
-    print(phone_df.calculate_fee().check_amount())
+    # print(phone_df.calculate_fee().check_amount())

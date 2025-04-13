@@ -20,8 +20,8 @@ class TimeOfDayDiscountPolicy(BasicRatePolicy):
     def __init__(self, starts, ends, duration, amount) -> None:
         self.__starts: list[time] = starts  # 시작시작 0시
         self.__ends: list[time] = ends  # 종료시간 19시
-        self.__duration: list[timedelta] = duration  # 단위시간 10초
-        self.__amount: list[Money] = amount  # 단위요금 18원
+        self.__duration: list[timedelta] = duration  # 단위시간 10초/10초
+        self.__amount: list[Money] = amount  # 단위요금 18원/15원
 
     # override
     def _calculate_call_fee(self, call: Call) -> Money:

@@ -1,10 +1,8 @@
-from abc import ABCMeta, abstractmethod
 from rate_policy_ import RatePolicy
 from phone_ import Phone
 from money_ import Money
 from call_ import Call
 from fee_rule_ import FeeRule
-from functools import reduce
 
 
 class BasicRatePolicy(RatePolicy):
@@ -16,7 +14,6 @@ class BasicRatePolicy(RatePolicy):
         self.__fee_rules = list(fee_rules) #tuple to list
 
     # override
-
     def calculate_fee(self, phone: Phone) -> Money:
         """
         1st 호출 되는 메서드

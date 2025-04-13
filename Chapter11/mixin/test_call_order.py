@@ -10,7 +10,7 @@ class BasicRatePolicy:
         result = self._calculate_call_fee(phone.calls)
         print("6. BasicRatePolicy.calculate_fee 종료, 반환값:", result.amount)
         return result
-    
+     
     def _calculate_call_fee(self, calls: List[Call]) -> Money:
         print("2. BasicRatePolicy._calculate_call_fee 호출")
         print("3. 기본 요금 계산 중...")

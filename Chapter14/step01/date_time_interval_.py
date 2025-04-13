@@ -6,13 +6,13 @@ if TYPE_CHECKING:
 
 
 class DateTimeInterval:
-    """기간 자체를 처리하는 전문가"""
+    """통화 시간을 분할하는 전문가"""
 
     def __init__(self, from_time: datetime, to_time: datetime) -> None:
         self.__from_time = from_time
         self.__to_time = to_time
 
-    """정적 팩토리 메서드"""
+    """객체 생성을 위한 정적 팩토리 메서드"""
 
     @classmethod
     def from_combine(cls, from_time, to_time):

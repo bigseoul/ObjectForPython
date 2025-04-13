@@ -9,14 +9,14 @@ from screening_ import Screening
 
 class DefaultDiscountPolicy(AbsDiscountPolicy, metaclass=ABCMeta):
     def __init__(self, *args: "AbsDiscountCondition") -> None:
-        self.conditions = list(args)
+        self.__conditions = list(args)
 
     def __str__(self) -> str:
-        return f"Discount Conditions: {self.conditions}"
+        return f"Discount Conditions: {self.__conditions}"
 
     # overrided
     def calculate_discount_amount(self, screening: "Screening") -> "Money":
-        for condition in self.conditions:
+        for condition in self.__conditions:
             if condition.is_satisfied_by(screening):
                 return self._get_discount_amount(screening)
 
